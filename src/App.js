@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { Container, AppBar, Typography, Grid, Grow } from "@material-ui/core";
 import Form from "./components/form/Form";
 import Posts from "./components/posts/Posts";
-import { getPosts } from "./actions/posts";
+import { getPosts, updateReservation } from "./actions/posts";
 import memories from "./images/memories.png";
 import useStyles from "./styles";
 
