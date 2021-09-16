@@ -1,7 +1,7 @@
 import React from "react";
 import moment from "moment";
 import { useDispatch } from "react-redux";
-import { deletePost } from "../../../actions/posts";
+import { deletePost, likePost } from "../../../actions/posts";
 import {
   Card,
   CardActions,
@@ -21,6 +21,12 @@ const Post = ({ post, setCurrentId }) => {
 
   const handlePostDelete = (id) => {
     dispatch(deletePost(id));
+  };
+
+  const handlePostLike = (id) => {
+    console.log(id);
+
+    dispatch(likePost(id));
   };
 
   return (
@@ -61,10 +67,16 @@ const Post = ({ post, setCurrentId }) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" color="primary" onClick={() => {}}>
+        <Button
+          size="small"
+          color="primary"
+          onClick={() => {
+            handlePostLike(post._id);
+          }}
+        >
           <ThumbUpAltIcon fontSize="small" />
           like
-          {post.LikeCount}
+          {post.likeCount}
         </Button>
         <Button
           size="small"
