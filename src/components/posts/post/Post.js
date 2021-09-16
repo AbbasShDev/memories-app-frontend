@@ -1,5 +1,7 @@
 import React from "react";
 import moment from "moment";
+import { useDispatch } from "react-redux";
+import { deletePost } from "../../../actions/posts";
 import {
   Card,
   CardActions,
@@ -15,6 +17,12 @@ import useStyles from "./styles";
 
 const Post = ({ post, setCurrentId }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  const handlePostDelete = (id) => {
+    dispatch(deletePost(id));
+  };
+
   return (
     <Card className={classes.card}>
       <CardMedia
@@ -58,7 +66,13 @@ const Post = ({ post, setCurrentId }) => {
           like
           {post.LikeCount}
         </Button>
-        <Button size="small" color="primary" onClick={() => {}}>
+        <Button
+          size="small"
+          color="primary"
+          onClick={() => {
+            handlePostDelete(post._id);
+          }}
+        >
           <DeleteIcon fontSize="small" />
           Delete
         </Button>
