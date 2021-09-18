@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { AppBar, Typography, Toolbar, Avatar, Button } from "@material-ui/core";
+import { LOGOUT } from "../../constants/actionTypes";
 import memories from "../../images/memories.png";
 import useStyles from "./styles";
 
@@ -20,7 +21,7 @@ const Navbar = () => {
   }, [location]);
 
   const logout = () => {
-    dispatch({ type: "LOGOUT" });
+    dispatch({ type: LOGOUT });
     setUser(null);
   };
 

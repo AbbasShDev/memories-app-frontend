@@ -10,9 +10,10 @@ import {
   Typography,
   Container,
 } from "@material-ui/core";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import { googleSignIn } from "../../actions/auth";
 import Input from "./Input";
 import GoogleIcon from "./GoogleIcon";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import useStyles from "./styles";
 
 const Auth = () => {
@@ -36,15 +37,8 @@ const Auth = () => {
   };
 
   const googleSignInSuccess = async (res) => {
-    const result = res?.profileObj;
-    const token = res?.tokenId;
-
-    try {
-      dispatch({ type: "AUTH", payload: { result, token } });
-      history.push("/");
-    } catch (error) {
-      console.log(error);
-    }
+    dispatch(googleSignIn(res));
+    history.push("/");
   };
 
   const googleSignInFailure = (error) => {
