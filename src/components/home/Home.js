@@ -11,6 +11,8 @@ const Home = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
+  dispatch(getPosts());
+
   useEffect(() => {
     dispatch(getPosts());
   }, [currentId, dispatch]);
