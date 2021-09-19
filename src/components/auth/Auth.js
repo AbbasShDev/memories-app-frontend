@@ -11,21 +11,40 @@ import {
   Container,
 } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import { googleSignIn } from "../../actions/auth";
+import { googleSignIn, signUp, signIn } from "../../actions/auth";
 import Input from "./Input";
 import GoogleIcon from "./GoogleIcon";
 import useStyles from "./styles";
 
+const initalFormData = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+};
+
 const Auth = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
+  const [formData, setFormData] = useState(initalFormData);
   const dispatch = useDispatch();
   const history = useHistory();
   const classess = useStyles();
 
-  const handelSubmit = () => {};
+  const handelSubmit = (e) => {
+    e.preventDefault();
 
-  const handelChange = () => {};
+    if (isSignup) {
+      dispatch(signUp(formData, history));
+    } else {
+      dispatch(signIn(formData, history));
+    }
+  };
+
+  const handelChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const handelShowPassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
@@ -33,7 +52,7 @@ const Auth = () => {
 
   const switchMode = () => {
     setIsSignup((prevIsSignup) => !prevIsSignup);
-    handelShowPassword(false);
+    setShowPassword(false);
   };
 
   const googleSignInSuccess = async (res) => {
@@ -66,7 +85,7 @@ const Auth = () => {
                   half
                 />
                 <Input
-                  name="familyName"
+                  name="lastName"
                   label="Family Name"
                   handelChange={handelChange}
                   half
