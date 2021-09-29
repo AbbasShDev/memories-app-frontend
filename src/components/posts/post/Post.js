@@ -1,6 +1,6 @@
 import React from "react";
 import moment from "moment";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { deletePost, likePost } from "../../../actions/posts";
 import {
   Card,
@@ -10,6 +10,7 @@ import {
   Button,
   Typography,
 } from "@material-ui/core";
+import ThumbUpAltOutlined from "@material-ui/icons/ThumbUpAltOutlined";
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import DeleteIcon from "@material-ui/icons/Delete";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
@@ -27,6 +28,36 @@ const Post = ({ post, setCurrentId }) => {
     console.log(id);
 
     dispatch(likePost(id));
+  };
+
+  const { authData: user } = useSelector((state) => state.auth);
+
+  const Likes = () => {
+    if (post.likes.length > 0) {
+      return post.likes.find(
+        (like) => like === (user?.result?.googleId || user?.result?._id)
+      ) ? (
+        <>
+          <ThumbUpAltIcon fontSize="small" />
+          &nbsp;
+          {post.likes.length > 2
+            ? `You and ${post.likes.length - 1} others`
+            : `${post.likes.length} like${post.likes.length > 1 ? "s" : ""}`}
+        </>
+      ) : (
+        <>
+          <ThumbUpAltOutlined fontSize="small" />
+          &nbsp;{post.likes.length} {post.likes.length === 1 ? "Like" : "Likes"}
+        </>
+      );
+    }
+
+    return (
+      <>
+        <ThumbUpAltOutlined fontSize="small" />
+        &nbsp;Like
+      </>
+    );
   };
 
   return (
@@ -76,13 +107,12 @@ const Post = ({ post, setCurrentId }) => {
         <Button
           size="small"
           color="primary"
+          disabled={!user}
           onClick={() => {
             handlePostLike(post._id);
           }}
         >
-          <ThumbUpAltIcon fontSize="small" />
-          &nbsp; like &nbsp;
-          {post.likeCount}
+          <Likes />
         </Button>
         <Button
           size="small"
