@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Container, Grid, Grow } from "@material-ui/core";
 import Form from "../../components/form/Form";
 import Posts from "../../components/posts/Posts";
@@ -10,8 +10,6 @@ const Home = () => {
   const [currentId, setCurrentId] = useState();
   const classes = useStyles();
   const dispatch = useDispatch();
-
-  dispatch(getPosts());
 
   useEffect(() => {
     dispatch(getPosts());

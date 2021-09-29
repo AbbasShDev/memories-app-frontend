@@ -6,7 +6,19 @@ import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import reducers from "./reducers";
 
-const store = createStore(reducers, compose(applyMiddleware(thunk)));
+const authFromStorage = localStorage.getItem("profile")
+  ? JSON.parse(localStorage.getItem("profile"))
+  : {};
+
+const initialState = {
+  auth: { authData: authFromStorage },
+};
+
+const store = createStore(
+  reducers,
+  initialState,
+  compose(applyMiddleware(thunk))
+);
 
 ReactDOM.render(
   <Provider store={store}>
