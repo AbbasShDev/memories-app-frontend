@@ -1,5 +1,6 @@
 import {
   FETCH_All,
+  FETCH_BY_SEARCH,
   CREATE_POST,
   UPDATE_POST,
   LIKE_POST,
@@ -10,8 +11,10 @@ export default (posts = [], action) => {
   switch (action.type) {
     case FETCH_All:
       return action.payload;
+    case FETCH_BY_SEARCH:
+      return action.payload;
     case CREATE_POST:
-      return [...posts, action.payload];
+      return [action.payload, ...posts];
     case UPDATE_POST:
     case LIKE_POST:
       return posts.map((post) =>

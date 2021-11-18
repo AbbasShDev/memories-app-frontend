@@ -13,7 +13,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import ChipInput from "material-ui-chip-input";
 import Form from "../../components/form/Form";
 import Posts from "../../components/posts/Posts";
-import { getPosts } from "../../actions/posts";
+import { getPosts, getPostsBySearch } from "../../actions/posts";
 import useStyles from "../../styles";
 import Pagination from "../pagination/Pagination";
 
@@ -38,16 +38,21 @@ const Home = () => {
 
   const handleKeyPress = (e) => {
     if (e.keyCode === 13) {
-      //Search backend
+      searchPost();
     }
   };
 
   const handleTagsAdd = (tag) => setTags([...tags, tag]);
+
   const handleTagsDelete = (tagToDelete) =>
     setTags(tags.filter((tag) => tag !== tagToDelete));
+
   const searchPost = () => {
-    if (search.trim()) {
-      //Dispatch -> action to search
+    if (search.trim() || tags) {
+      dispatch(getPostsBySearch({ search, tags: tags.join(",") }));
+      history.push(
+        `/posts/search?searchQuery=${search || "none"}&tags=${tags.join(",")}`
+      );
     } else {
       history.push("/");
     }

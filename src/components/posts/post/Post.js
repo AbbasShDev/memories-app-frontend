@@ -60,7 +60,7 @@ const Post = ({ post, setCurrentId }) => {
   };
 
   return (
-    <Card className={classes.card}>
+    <Card className={classes.card} raised elevation={6}>
       <CardMedia
         className={classes.media}
         image={post.selectedFile}
@@ -103,7 +103,7 @@ const Post = ({ post, setCurrentId }) => {
           component="p"
           gutterBottom
         >
-          {post.message}
+          {post.message.substring(0, 150) + " ..."}
         </Typography>
       </CardContent>
       <CardActions>
