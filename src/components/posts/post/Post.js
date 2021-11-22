@@ -30,7 +30,6 @@ const Post = ({ post, setCurrentId }) => {
 
   const { authData: user } = useSelector((state) => state.auth);
 
-  console.log(user);
   const Likes = () => {
     if (post.likes.length > 0) {
       return post.likes.find(

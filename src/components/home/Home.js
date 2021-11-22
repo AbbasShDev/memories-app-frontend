@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   Container,
   Grid,
@@ -18,7 +18,7 @@ import useStyles from "../../styles";
 import Pagination from "../pagination/Pagination";
 
 function useQuery() {
-  return new URLSearchParams(useLocation.search);
+  return new URLSearchParams(useLocation().search);
 }
 
 const Home = () => {
@@ -31,10 +31,6 @@ const Home = () => {
   const searchQuery = query.get("searchQuery");
   const [search, setSearch] = useState("");
   const [tags, setTags] = useState([]);
-
-  useEffect(() => {
-    dispatch(getPosts());
-  }, [currentId, dispatch]);
 
   const handleKeyPress = (e) => {
     if (e.keyCode === 13) {
@@ -104,7 +100,7 @@ const Home = () => {
             </AppBar>
             <Form currentId={currentId} setCurrentId={setCurrentId} />
             <Paper elevation={6}>
-              <Pagination />
+              <Pagination page={page} />
             </Paper>
           </Grid>
         </Grid>

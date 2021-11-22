@@ -12,12 +12,17 @@ const Form = ({ currentId, setCurrentId }) => {
     tags: "",
     selectedFile: "",
   });
-  const post = useSelector((state) =>
-    state.posts.find((p) => (currentId ? p._id === currentId : currentId))
-  );
   const dispatch = useDispatch();
   const classes = useStyles();
-  // const user = JSON.parse(localStorage.getItem("profile"));
+
+  const post = useSelector((state) =>
+    currentId
+      ? state.posts.posts.find((p) =>
+          currentId ? p._id === currentId : currentId
+        )
+      : null
+  );
+
   const { authData: user } = useSelector((state) => state.auth);
 
   useEffect(() => {
