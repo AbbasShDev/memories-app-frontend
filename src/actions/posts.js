@@ -1,5 +1,6 @@
 import {
   FETCH_All,
+  FETCH_POST,
   FETCH_BY_SEARCH,
   CREATE_POST,
   UPDATE_POST,
@@ -19,6 +20,20 @@ export const getPosts = (page) => async (dispatch) => {
     dispatch({ type: END_LOADING });
 
     dispatch({ type: FETCH_All, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getPost = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: START_LOADING });
+
+    const { data } = await api.fetchPost(id);
+
+    dispatch({ type: END_LOADING });
+
+    dispatch({ type: FETCH_POST, payload: data });
   } catch (error) {
     console.log(error);
   }
