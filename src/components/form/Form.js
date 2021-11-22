@@ -39,7 +39,7 @@ const Form = ({ currentId, setCurrentId }) => {
       dispatch(getPosts());
     } else {
       dispatch(createPost({ ...postData, name: user?.result?.name }));
-      dispatch(getPosts());
+      // dispatch(getPosts());
     }
 
     clear();
@@ -65,7 +65,7 @@ const Form = ({ currentId, setCurrentId }) => {
     );
   }
   return (
-    <Paper className={classes.paper}>
+    <Paper className={classes.paper} elevation={6}>
       <form
         autoComplete="off"
         noValidate

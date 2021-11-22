@@ -5,10 +5,16 @@ import {
   UPDATE_POST,
   LIKE_POST,
   DELETE_POST,
+  START_LOADING,
+  END_LOADING,
 } from "../constants/actionTypes";
 
-export default (state = [], action) => {
+export default (state = { posts: [], isLoading: true }, action) => {
   switch (action.type) {
+    case START_LOADING:
+      return { ...state, isLoading: true };
+    case END_LOADING:
+      return { ...state, isLoading: false };
     case FETCH_All:
       return {
         ...state,
@@ -19,17 +25,23 @@ export default (state = [], action) => {
     case FETCH_BY_SEARCH:
       return {
         ...state,
-        posts: action.payload.data,
+        posts: action.payload,
       };
     case CREATE_POST:
-      return [action.payload, ...state];
+      return { posts: [...state.posts, action.payload], ...state };
     case UPDATE_POST:
     case LIKE_POST:
-      return state.map((post) =>
-        post._id === action.payload._id ? action.payload : post
-      );
+      return {
+        ...state,
+        posts: state.posts.map((post) =>
+          post._id === action.payload._id ? action.payload : post
+        ),
+      };
     case DELETE_POST:
-      return state.filter((post) => post._id !== action.payload);
+      return {
+        ...state,
+        posts: state.posts.filter((post) => post._id !== action.payload),
+      };
     default:
       return state;
   }

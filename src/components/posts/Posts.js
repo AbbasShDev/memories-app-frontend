@@ -5,10 +5,10 @@ import { Grid, CircularProgress } from "@material-ui/core";
 import useStyles from "./styles";
 
 const Posts = ({ setCurrentId }) => {
-  const { posts } = useSelector((state) => state.posts);
+  const { posts, isLoading } = useSelector((state) => state.posts);
   const classes = useStyles();
 
-  return !posts?.length ? (
+  return isLoading ? (
     <CircularProgress />
   ) : (
     <Grid

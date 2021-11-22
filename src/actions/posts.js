@@ -5,12 +5,18 @@ import {
   UPDATE_POST,
   LIKE_POST,
   DELETE_POST,
+  START_LOADING,
+  END_LOADING,
 } from "../constants/actionTypes";
 import * as api from "../api";
 
 export const getPosts = (page) => async (dispatch) => {
   try {
+    dispatch({ type: START_LOADING });
+
     const { data } = await api.fetchPosts(page);
+
+    dispatch({ type: END_LOADING });
 
     dispatch({ type: FETCH_All, payload: data });
   } catch (error) {
@@ -20,7 +26,11 @@ export const getPosts = (page) => async (dispatch) => {
 
 export const getPostsBySearch = (searchQuery) => async (dispatch) => {
   try {
+    dispatch({ type: START_LOADING });
+
     const { data } = await api.fetchPostsBySearch(searchQuery);
+
+    dispatch({ type: END_LOADING });
 
     dispatch({ type: FETCH_BY_SEARCH, payload: data });
   } catch (error) {
