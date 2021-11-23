@@ -23,7 +23,7 @@ const App = () => {
             path="/auth"
             exact
             component={() =>
-              !user.result ? <Auth /> : <Redirect to="posts" />
+              !user?.result ? <Auth /> : <Redirect to="posts" />
             }
           />
         </Switch>

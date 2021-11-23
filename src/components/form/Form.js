@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import useStyles from "./styles";
 import { TextField, Button, Typography, Paper } from "@material-ui/core";
 import FileBase from "react-file-base64";
@@ -13,6 +14,7 @@ const Form = ({ currentId, setCurrentId }) => {
     selectedFile: "",
   });
   const dispatch = useDispatch();
+  const history = useHistory();
   const classes = useStyles();
 
   const post = useSelector((state) =>
@@ -38,7 +40,7 @@ const Form = ({ currentId, setCurrentId }) => {
       );
       dispatch(getPosts());
     } else {
-      dispatch(createPost({ ...postData, name: user?.result?.name }));
+      dispatch(createPost({ ...postData, name: user?.result?.name }, history));
       // dispatch(getPosts());
     }
 
