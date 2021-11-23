@@ -29,10 +29,9 @@ export default makeStyles((theme) => ({
       marginLeft: 0,
     },
   },
-  recommendedPosts: {
-    display: "flex",
-    [theme.breakpoints.down("sm")]: {
-      flexDirection: "column",
+  recommendedPostsCardContent: {
+    [theme.breakpoints.up("md")]: {
+      height: "100px",
     },
   },
   loadingPaper: {
