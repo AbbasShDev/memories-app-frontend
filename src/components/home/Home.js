@@ -94,6 +94,7 @@ const Home = () => {
                 // className={classes.searchButton}
                 variant="contained"
                 color="primary"
+                disabled={!search && tags.length <= 0}
               >
                 Search
               </Button>
