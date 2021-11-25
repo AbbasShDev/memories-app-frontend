@@ -29,10 +29,6 @@ const PostDetails = () => {
     dispatch(getPost(id));
   }, [id]);
 
-  useEffect(() => {
-    if (post) dispatch(getPostsBySearch({ tags: post.tags.join(",") }));
-  }, []);
-
   if (!post) return null;
 
   if (isLoading) {

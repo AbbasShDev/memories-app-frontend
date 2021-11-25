@@ -13,7 +13,7 @@ import {
   END_LOADING_COMMENTS,
 } from "../constants/actionTypes";
 
-export default (state = { posts: [], isLoading: true }, action) => {
+export default (state = { isLoading: true, posts: [] }, action) => {
   switch (action.type) {
     case START_LOADING:
       return { ...state, isLoading: true };
@@ -33,7 +33,8 @@ export default (state = { posts: [], isLoading: true }, action) => {
     case FETCH_POST:
       return {
         ...state,
-        post: action.payload,
+        post: action.payload.post,
+        posts: action.payload.recommendedPosts,
       };
     case FETCH_BY_SEARCH:
       return {
