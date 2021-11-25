@@ -34,6 +34,7 @@ export const getPost = (id) => async (dispatch) => {
 
     const { data } = await api.fetchPost(id);
 
+    console.log(data);
     dispatch({ type: END_LOADING });
 
     dispatch({ type: FETCH_POST, payload: data });

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import {
   Typography,
   TextField,
@@ -26,7 +26,9 @@ const Comments = ({ post }) => {
   return (
     <div>
       <div className={classes.commentsOuterContainer}>
-        <div className={classes.commentsInnerContainer}>
+        <div
+          style={{ maxHeight: "200px", height: "200px", overflowY: "hidden" }}
+        >
           <Grid container justifyContent="space-between" alignItems="center">
             <Grid item>
               <Typography gutterBottom variant="h6">
@@ -37,15 +39,17 @@ const Comments = ({ post }) => {
               {isLoadingComments && <CircularProgress size={20} />}
             </Grid>
           </Grid>
-          {post.comments &&
-            post.comments.map((c, i) => (
-              <Typography key={i} gutterBottom variant="subtitle1">
-                {`${c.name}: ${c.comment}`}
-              </Typography>
-            ))}
+          <div className={classes.commentsInnerContainer}>
+            {post.comments &&
+              post.comments.map((c, i) => (
+                <Typography key={i} gutterBottom variant="subtitle1">
+                  <strong>{c.name}</strong>: {c.comment}
+                </Typography>
+              ))}
+          </div>
         </div>
         {user?.result?.name && (
-          <div style={{ width: "70%" }}>
+          <div className={classes.writeCommentsContainer}>
             <Typography gutterBottom variant="h6">
               Write a comment
             </Typography>
