@@ -8,6 +8,9 @@ import {
   DELETE_POST,
   START_LOADING,
   END_LOADING,
+  CREATE_COMMENT,
+  START_LOADING_COMMENTS,
+  END_LOADING_COMMENTS,
 } from "../constants/actionTypes";
 
 export default (state = { posts: [], isLoading: true }, action) => {
@@ -16,6 +19,10 @@ export default (state = { posts: [], isLoading: true }, action) => {
       return { ...state, isLoading: true };
     case END_LOADING:
       return { ...state, isLoading: false };
+    case START_LOADING_COMMENTS:
+      return { ...state, isLoadingComments: true };
+    case END_LOADING_COMMENTS:
+      return { ...state, isLoadingComments: false };
     case FETCH_All:
       return {
         ...state,
@@ -32,6 +39,12 @@ export default (state = { posts: [], isLoading: true }, action) => {
       return {
         ...state,
         posts: action.payload,
+      };
+    case CREATE_COMMENT:
+      return {
+        ...state,
+        isLoading: false,
+        post: action.payload,
       };
     case CREATE_POST:
       return { posts: [...state.posts, action.payload], ...state };

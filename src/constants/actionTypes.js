@@ -16,4 +16,3 @@ export const AUTH = "AUTH";
 export const LOGOUT = "LOGOUT";
 
 export const CREATE_COMMENT = "CREATE_COMMENT";
-export const FETCH_All_COMMENTS = "FETCH_All_COMMENTS";

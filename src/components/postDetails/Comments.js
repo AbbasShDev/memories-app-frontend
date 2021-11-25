@@ -4,49 +4,43 @@ import {
   TextField,
   Button,
   CircularProgress,
+  Grid,
 } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import useStyles from "./styles";
-import { createComment, getComments } from "../../actions/comments";
+import { createPostComments } from "../../actions/posts";
 
 const Comments = ({ post }) => {
   const classes = useStyles();
   const [comment, setComment] = useState("");
   const dispatch = useDispatch();
   const { authData: user } = useSelector((state) => state.auth);
-  const { comments, isLoading } = useSelector((state) => state.comments);
-
-  useEffect(() => {
-    if (post) {
-      dispatch(getComments({ postId: post._id }));
-    }
-  }, [post]);
+  const { isLoadingComments } = useSelector((state) => state.posts);
 
   const handleSaveComment = () => {
     dispatch(
-      createComment({
-        postId: post._id,
-        comment,
-        creatorName: user?.result?.name,
-      })
+      createPostComments(post._id, { comment, name: user?.result?.name })
     );
     setComment("");
-    dispatch(getComments({ postId: post._id }));
   };
   return (
     <div>
       <div className={classes.commentsOuterContainer}>
         <div className={classes.commentsInnerContainer}>
-          {isLoading && <CircularProgress />}
-
-          <Typography gutterBottom variant="h6">
-            Comments
-          </Typography>
-          {!isLoading &&
-            comments &&
-            comments.map((c, i) => (
+          <Grid container justifyContent="space-between" alignItems="center">
+            <Grid item>
+              <Typography gutterBottom variant="h6">
+                Comments
+              </Typography>
+            </Grid>
+            <Grid item>
+              {isLoadingComments && <CircularProgress size={20} />}
+            </Grid>
+          </Grid>
+          {post.comments &&
+            post.comments.map((c, i) => (
               <Typography key={i} gutterBottom variant="subtitle1">
-                {`${c.creatorName}: ${c.comment}`}
+                {`${c.name}: ${c.comment}`}
               </Typography>
             ))}
         </div>
@@ -65,7 +59,7 @@ const Comments = ({ post }) => {
               onChange={(e) => setComment(e.target.value)}
             />
             <Button
-              style={{ marginTop: "10px" }}
+              style={{ marginTop: "5px" }}
               fullWidth
               disabled={!comment}
               color="primary"

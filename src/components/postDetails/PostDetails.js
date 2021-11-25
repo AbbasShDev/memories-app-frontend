@@ -31,7 +31,7 @@ const PostDetails = () => {
 
   useEffect(() => {
     if (post) dispatch(getPostsBySearch({ tags: post.tags.join(",") }));
-  }, [post]);
+  }, []);
 
   if (!post) return null;
 

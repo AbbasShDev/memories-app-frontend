@@ -51,5 +51,6 @@ export default makeStyles((theme) => ({
     height: "200px",
     overflowY: "auto",
     marginRight: "30px",
+    flex: 1,
   },
 }));

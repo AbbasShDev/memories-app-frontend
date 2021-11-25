@@ -8,6 +8,9 @@ import {
   DELETE_POST,
   START_LOADING,
   END_LOADING,
+  START_LOADING_COMMENTS,
+  END_LOADING_COMMENTS,
+  CREATE_COMMENT,
 } from "../constants/actionTypes";
 import * as api from "../api";
 
@@ -92,6 +95,20 @@ export const likePost = (id) => async (dispatch) => {
     const { data } = await api.likePost(id);
 
     dispatch({ type: LIKE_POST, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const createPostComments = (id, commentsInfo) => async (dispatch) => {
+  try {
+    dispatch({ type: START_LOADING_COMMENTS });
+
+    const { data } = await api.createPostComment(id, commentsInfo);
+
+    dispatch({ type: END_LOADING_COMMENTS });
+
+    dispatch({ type: CREATE_COMMENT, payload: data });
   } catch (error) {
     console.log(error);
   }
